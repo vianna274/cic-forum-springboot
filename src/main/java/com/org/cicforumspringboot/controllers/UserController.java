@@ -26,16 +26,12 @@ public class UserController {
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable String userId) {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-    }
+}
 
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/facebookUser/{faceId}")
     public User getFaceUser(@PathVariable String faceId) {
-        return userRepository.findAll()
-                .stream()
-                .filter(user -> faceId.equals(user.getFacebookUid()))
-                .findFirst()
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return userRepository.findByFacebookUid(faceId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
@@ -51,8 +47,11 @@ public class UserController {
         return userRepository
                 .findById(userId)
                 .map(user -> {
+                    user.setFirstName(userRequest.getFirstName());
+                    user.setLastName(userRequest.getLastName());
+                    user.setPassword(userRequest.getPassword());
+                    user.setUsername(userRequest.getUsername());
                     user.setPosts(userRequest.getPosts());
-//                    user.setFavoritePosts(userRequest.getFavoritePosts());
                     return userRepository.save(user);
                 })
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));

@@ -1,5 +1,6 @@
 package com.org.cicforumspringboot.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class User extends Audit {
     @OneToMany(cascade = CascadeType.ALL,
             fetch = FetchType.LAZY,
             mappedBy = "user")
+    @JsonIgnore
     private Set<Post> posts = new HashSet<>();
 
     public String getId() {
