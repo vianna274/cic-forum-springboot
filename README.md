@@ -2,7 +2,7 @@
 
 This project contains the backend code for the CIC FORUM web application. CIC FORUM is developed using Spring Boot.
 
-The Frontend can be found [here](https://github.com/vianna274/cic-forum-springboot).
+The Frontend can be found [here](https://github.com/vianna274/cic-forum-react).
 
 1. Install Git
 2. Install [IntelliJ](https://www.jetbrains.com/idea/) (free for students)
