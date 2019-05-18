@@ -11,30 +11,27 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/users")
     public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/user/{userId}")
     public User getUser(@PathVariable String userId) {
         return userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
 }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/facebookUser/{faceId}")
     public User getFaceUser(@PathVariable String faceId) {
         return userRepository.findByFacebookUid(faceId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/user")
     public User createUser(@Valid @RequestBody User user) {
         return userRepository.save(user);
